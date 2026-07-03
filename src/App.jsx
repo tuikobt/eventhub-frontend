@@ -1,9 +1,7 @@
+import LoginPage from './pages/auth/LoginPage';
+
 function App() {
-  return (
-    <>
-      <h1>eventhub-frontend</h1>
-    </>
-  );
+  return <LoginPage />;
 }
 
 export default App;
