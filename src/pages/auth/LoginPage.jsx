@@ -3,15 +3,21 @@ import FloatingInput from '../../components/forms/FloatingInput';
 import Button from '../../components/common/Button';
 import Checkbox from '../../components/common/Checkbox';
 import SocialButton from '../../components/common/SocialButton';
+import { useAuth } from '../../hooks/useAuth';
 
 export default function LoginPage() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [rememberMe, setRememberMe] = useState(false);
 
-  const handleSubmit = (e) => {
+  const { loading, error, login } = useAuth();
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log('Login Submitted:', { email, password, rememberMe });
+    const resultAction = await login(email, password);
+    if (resultAction.meta?.requestStatus === 'fulfilled') {
+      alert('Đăng nhập thành công!');
+    }
   };
 
   return (
@@ -42,9 +48,9 @@ export default function LoginPage() {
 
       {/* Right Side: Login Form (100% on mobile, 60% on desktop) */}
       <div className="w-full lg:w-3/5 flex flex-col items-center justify-center p-margin-mobile lg:p-margin-desktop bg-surface-white overflow-y-auto min-h-screen relative z-30">
-        <div className="w-full max-w-lg space-y-lg">
+        <div className="w-full max-w-lg space-y-lg flex flex-col items-stretch justify-center px-sm">
           {/* Mobile Brand Header */}
-          <div className="lg:hidden text-center mb-xl fade-in">
+          <div className="lg:hidden text-center mb-xl fade-in w-full">
             <div className="flex items-center justify-center gap-xs">
               <h1 className="font-display-lg text-display-lg font-black text-primary text-[32px] leading-[40px]">
                 EventHub
@@ -53,14 +59,21 @@ export default function LoginPage() {
           </div>
 
           {/* Form Header */}
-          <div className="fade-in delay-100">
+          <div className="fade-in delay-100 w-full text-left">
             <h1 className="font-display-lg text-display-lg text-text-main font-black">Đăng nhập</h1>
             <p className="font-body-md text-body-md text-text-muted mt-base">
               Vui lòng đăng nhập để quản lý sự kiện của bạn.
             </p>
           </div>
 
-          <form className="space-y-md fade-in delay-200" onSubmit={handleSubmit}>
+          {/* Error Message */}
+          {error && (
+            <div className="bg-error-container text-on-error-container p-sm rounded-DEFAULT text-sm w-full border border-error/20 fade-in">
+              {error}
+            </div>
+          )}
+
+          <form className="space-y-md fade-in delay-200 w-full" onSubmit={handleSubmit}>
             {/* Email */}
             <FloatingInput
               id="email"
@@ -102,13 +115,38 @@ export default function LoginPage() {
             </div>
 
             {/* Submit Button */}
-            <Button type="submit" variant="primary" icon="arrow_forward">
-              Đăng nhập
+            <Button type="submit" variant="primary" icon="arrow_forward" disabled={loading}>
+              {loading ? 'Đang xử lý...' : 'Đăng nhập'}
             </Button>
           </form>
 
+          {/* Divider */}
+          <div className="relative fade-in delay-300 w-full">
+            <div className="absolute inset-0 flex items-center">
+              <div className="w-full border-t border-border-gray"></div>
+            </div>
+            <div className="relative flex justify-center text-sm">
+              <span className="px-2 bg-surface-white font-caption text-caption text-text-muted">
+                Hoặc đăng nhập với
+              </span>
+            </div>
+          </div>
+
+          {/* Social Login */}
+          <div className="grid grid-cols-3 gap-sm fade-in delay-300 w-full">
+            <SocialButton
+              iconUrl="https://lh3.googleusercontent.com/aida-public/AB6AXuDwyH7jKKhtjZdsZeB4ERg4jqRClYSMhoxFLU0fi62c2PIZ7m9d6g7ldLkYvgckOFaGGIgKDwnW_NdFBhOCvVgEUbf1Ltwjaclooudegadg1A4oBUuIm-cBmGxjN_mi-uQUTls3wJpScDE6LxvZSjxBymn6IICNMbIgt57nxL9dVc7y4BSLJ9a_0f0zh9uXtYbTr4CuIks0rLi8eoPdgsyy1Y23Y0UXAnBgNeavnH5MobR6pf954Mj1XtFDU21PoceHx_LhhTe1FFI"
+              altText="Google Logo"
+            />
+            <SocialButton
+              iconUrl="https://lh3.googleusercontent.com/aida-public/AB6AXuC9wOUgKATVmhjo2h1C2KsU00eNOWEmFaKoe0tIS4bZoB5O-8ybonypiagJdBOKdtCVPgXaHT64YocDed_kjukhnxV87oWQqIfwizkKoUIEIt1YHkWkmLfmuRW9w797k2Tep8-M9ekEvBuhjgjQj1QYOAPSVAmHpAKp0alUw6d9BNXWZCknVkqjLPUwUD14LC42supNQKZ1mjHpfDdTyuKCkar_LKN2uAod5D9L7R3Ql5xRYjCk-NJqOMfFcm8Ng2egVhca5oa_f4w"
+              altText="Facebook Logo"
+            />
+            <SocialButton iconName="apps" />
+          </div>
+
           {/* Footer */}
-          <div className="text-center mt-lg fade-in delay-300">
+          <div className="text-center mt-lg fade-in delay-300 w-full">
             <p className="font-body-md text-body-md text-text-muted">
               Chưa có tài khoản?{' '}
               <a
