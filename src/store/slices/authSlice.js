@@ -6,8 +6,8 @@ export const loginUser = createAsyncThunk(
   async ({ email, password }, thunkAPI) => {
     try {
       const response = await authService.login(email, password);
-      const token = response.token || response.accessToken || response.data?.token || (typeof response === 'string' ? response : null);
-      const user = response.user || response.data?.user || { email };
+      const token = response.data?.accessToken || response.accessToken || response.token || response.data?.token;
+      const user = response.data?.user || response.user || { email };
 
       if (token) {
         localStorage.setItem('token', token);
