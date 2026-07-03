@@ -25,9 +25,9 @@ export default function LoginPage() {
       {/* Left Side: Visual/Branding (Hidden on mobile, 40% on desktop) */}
       <div className="hidden lg:flex lg:w-2/5 relative overflow-hidden flex-col justify-end p-xl">
         <img
-          alt="EventPulse 3D Illustration"
+          alt="EventHub Banner"
           className="absolute inset-0 w-full h-full object-cover z-0"
-          src="https://lh3.googleusercontent.com/aida/AP1WRLsqjVpjZO3ySLAovW2QK8isXrGJTWsRmsrV9XRa56S4YLCuuGgHeZDmm-N-kuJLj1z9FRFfm2HkORSvkn44U-6W5umEXrpPXIyi7hY1QsZ4oz4qJD7WJkwuVzYEX4FAZU5v1rgihoMhx7JzoFGPZ2N1b3Kb5SDZfx3vszk0EQ9L6XicLbe3Z34QFpLTy96LIxQda5YJh9PIL_VvTt_1DYcXDr_mM8RdK-ggUxWMPsCVjT3ZJh5Qaj5nV_A"
+          src="https://images.unsplash.com/photo-1470225620780-dba8ba36b745?auto=format&fit=crop&w=1000&q=80"
         />
         {/* Dark overlay to ensure text legibility */}
         <div className="absolute inset-0 bg-surface-dark/60 backdrop-blur-sm z-10"></div>
@@ -119,31 +119,6 @@ export default function LoginPage() {
               {loading ? 'Đang xử lý...' : 'Đăng nhập'}
             </Button>
           </form>
-
-          {/* Divider */}
-          <div className="relative fade-in delay-300 w-full">
-            <div className="absolute inset-0 flex items-center">
-              <div className="w-full border-t border-border-gray"></div>
-            </div>
-            <div className="relative flex justify-center text-sm">
-              <span className="px-2 bg-surface-white font-caption text-caption text-text-muted">
-                Hoặc đăng nhập với
-              </span>
-            </div>
-          </div>
-
-          {/* Social Login */}
-          <div className="grid grid-cols-3 gap-sm fade-in delay-300 w-full">
-            <SocialButton
-              iconUrl="https://lh3.googleusercontent.com/aida-public/AB6AXuDwyH7jKKhtjZdsZeB4ERg4jqRClYSMhoxFLU0fi62c2PIZ7m9d6g7ldLkYvgckOFaGGIgKDwnW_NdFBhOCvVgEUbf1Ltwjaclooudegadg1A4oBUuIm-cBmGxjN_mi-uQUTls3wJpScDE6LxvZSjxBymn6IICNMbIgt57nxL9dVc7y4BSLJ9a_0f0zh9uXtYbTr4CuIks0rLi8eoPdgsyy1Y23Y0UXAnBgNeavnH5MobR6pf954Mj1XtFDU21PoceHx_LhhTe1FFI"
-              altText="Google Logo"
-            />
-            <SocialButton
-              iconUrl="https://lh3.googleusercontent.com/aida-public/AB6AXuC9wOUgKATVmhjo2h1C2KsU00eNOWEmFaKoe0tIS4bZoB5O-8ybonypiagJdBOKdtCVPgXaHT64YocDed_kjukhnxV87oWQqIfwizkKoUIEIt1YHkWkmLfmuRW9w797k2Tep8-M9ekEvBuhjgjQj1QYOAPSVAmHpAKp0alUw6d9BNXWZCknVkqjLPUwUD14LC42supNQKZ1mjHpfDdTyuKCkar_LKN2uAod5D9L7R3Ql5xRYjCk-NJqOMfFcm8Ng2egVhca5oa_f4w"
-              altText="Facebook Logo"
-            />
-            <SocialButton iconName="apps" />
-          </div>
 
           {/* Footer */}
           <div className="text-center mt-lg fade-in delay-300 w-full">
